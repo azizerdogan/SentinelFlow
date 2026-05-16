@@ -22,6 +22,7 @@ There are 25 tests baked into this project that run every time the pipeline buil
 ### How to Run It Locally
 If you want to pull this down and run it yourself, you just need Python installed. It takes about a minute to spin up.
 
+```bash
 # 1. Clone the repo and get into the directory
 git clone https://github.com/azizerdogan/SentinelFlow.git
 cd SentinelFlow
