@@ -1,0 +1,55 @@
+version: 2
+
+sources:
+  - name: rcm
+    description: Raw Healthcare RCM seed data loaded via dbt seed
+    # dbt-duckdb prefixes target schema (main) + custom seed schema (raw)
+    schema: main_raw
+    tables:
+      - name: claims_submitted
+        description: Submitted claims from billing system
+        columns:
+          - name: claim_id
+            description: Unique claim identifier
+            tests:
+              - unique
+              - not_null
+          - name: patient_id
+            tests:
+              - not_null
+          - name: provider_id
+            tests:
+              - not_null
+          - name: submission_date
+            tests:
+              - not_null
+          - name: procedure_code
+            tests:
+              - not_null
+          - name: billed_amount
+            tests:
+              - not_null
+
+      - name: insurance_remittances
+        description: Payer remittance advice (835-style adjudication outcomes)
+        columns:
+          - name: remittance_id
+            description: Unique remittance line identifier
+            tests:
+              - unique
+              - not_null
+          - name: claim_id
+            tests:
+              - not_null
+              - relationships:
+                  to: source('rcm', 'claims_submitted')
+                  field: claim_id
+          - name: adjudication_date
+            tests:
+              - not_null
+          - name: allowed_amount
+            tests:
+              - not_null
+          - name: paid_amount
+            tests:
+              - not_null

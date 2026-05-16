@@ -1,0 +1,9 @@
+# Point dbt at this file: set DBT_PROFILES_DIR to the project root, or copy to ~/.dbt/profiles.yml
+sentinelflow_rcm:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "{{ env_var('RCM_DUCKDB_PATH', 'data/rcm.duckdb') }}"
+      schema: main
+      threads: 4

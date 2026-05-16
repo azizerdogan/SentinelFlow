@@ -1,0 +1,53 @@
+name: sentinelflow_rcm
+version: "1.0.0"
+config-version: 2
+
+profile: sentinelflow_rcm
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+seeds:
+  sentinelflow_rcm:
+    +schema: raw
+    claims_submitted:
+      +column_types:
+        claim_id: varchar
+        patient_id: varchar
+        provider_id: varchar
+        submission_date: date
+        procedure_code: varchar
+        billed_amount: double
+    insurance_remittances:
+      +column_types:
+        remittance_id: varchar
+        claim_id: varchar
+        adjudication_date: date
+        allowed_amount: double
+        paid_amount: double
+        denial_reason_code: varchar
+
+models:
+  sentinelflow_rcm:
+    staging:
+      +materialized: view
+      +schema: staging
+    marts:
+      +materialized: table
+      +schema: marts
+
+vars:
+  adjudication_status_values:
+    - "Fully Paid"
+    - "Partially Paid"
+    - "Denied"
+    - "Unpaid"
