@@ -22,19 +22,16 @@ There are 25 tests baked into this project that run every time the pipeline buil
 ### How to Run It Locally
 If you want to pull this down and run it yourself, you just need Python installed. It takes about a minute to spin up.
 
-1. **Clone the repo and get into the directory**
+**1. Clone the repo and get into the directory**
 
-```bash
 git clone <https://github.com/azizerdogan/SentinelFlow.git>
 cd SentinelFlow
 
-2. Install dependencies and generate the mock data
-
+**2. Install dependencies and generate the mock data**
 pip install -r requirements.txt
 python generate_data.py
 
-3. Run the dbt pipeline
-
+**3. Run the dbt pipeline**
 # Point dbt to the local directory
 $env:DBT_PROFILES_DIR = "."
 
